@@ -1,17 +1,15 @@
 import "./App.css";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom"
+import HomePage from "./pages/HomePage";
 const App = () => {
   return (
-    <>
-      <div className="md:container md:mx-auto">
-
-        <h1 className="text-5xl font-bold">
-          Hello world!
-        </h1>
-      </div>
-
-
-    </>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+      </BrowserRouter>
+    
   )
-}
+};
 
-export default App
+export default App;
