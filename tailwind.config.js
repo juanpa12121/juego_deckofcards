@@ -8,7 +8,11 @@ module.exports = {
     },
     container:{
       center: true,
-      padding: '2rem'
+      padding: '1rem',
+    },
+    screens:{
+      'sm': '560px',
+      'xs': '320px'
     }
   },
   plugins: [],
