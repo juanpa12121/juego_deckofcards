@@ -1,6 +1,10 @@
 import {  Route, Routes, Link, Outlet, useNavigate } from "react-router-dom"
 import NavBar from "../components/NavBar";
+import usePlayers from "../hooks/usePlayers";
 const GamePage = () => {
+
+  const {player1, player2} = usePlayers();
+
     const navigate = useNavigate();
 
     const handleHome = () =>{
@@ -13,8 +17,8 @@ const GamePage = () => {
         <div className="mt-20 xs:mt-0 pt-1 xs:pt-32 bg-slate-800 container">
           <div className="flex flex-col xs:flex-row overflow-y-auto justify-around py-5 text-white">
             <div className="container">
-              <h2>Jugador 1: </h2>
-              <hr></hr>
+              <h2 className="border-b border-b-slate-400">Jugador 1: {player1.name} </h2>
+              
                 <div className="py-2">
                   <h3>Cartas opcionadas</h3>
                   <div className="flex justify-center flex-col sm:flex-row items-center py-4">
@@ -34,7 +38,7 @@ const GamePage = () => {
               </div>
             </div>
             <div className="container">
-              <h2>Jugador 2: </h2>
+              <h2>Jugador 2: {player2.name} </h2>
               <hr></hr>
               <div className="py-2">
                 <h3>Cartas opcionadas</h3>
