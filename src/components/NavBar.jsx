@@ -1,12 +1,11 @@
-import { Link, useLocation, useNavigate } from "react-router-dom"
-const NavBar = () => {
-    const location = useLocation();
-    const locationURL = location.pathname;
-    const navigate = useNavigate();
+import { Link, useLocation } from "react-router-dom"
+import usePlayers from "../hooks/usePlayers";
 
-    const handleHome = () =>{
-        navigate("/", {replace: true});
-    }
+const NavBar = () => {
+  const { handleSubmitGame, setMatch } = usePlayers()
+  const location = useLocation();
+  const locationURL = location.pathname;
+
   return (
     <>
     <nav className="flex sm:gap-8 text-center sm:text-left items-center justify-around flex-wrap bg-slate-600 p-6 fixed w-full z-10 top-0">
@@ -18,14 +17,16 @@ const NavBar = () => {
         locationURL === "/" ?
         <div className="flex-grow lg:flex lg:items-center lg:w-auto">
             <div className="text-2xl lg:flex-grow">
-            <Link className="block sm:text-left lg:inline-block lg:mt-0 text-slate-200 hover:text-white" to="instructions">Instrucciones</Link>
+              <Link className="block sm:text-left lg:inline-block lg:mt-0 text-slate-200 hover:text-white" to="instructions">Instrucciones</Link>
             </div>
         </div>
         :
         locationURL === "/game" ?
         <div className="flex gap-1">
-            <button className="btn-primary" onClick={handleHome}>Jugar</button>
-            <button className="btn-secondary" onClick={handleHome}>Salir</button>
+          <form className="flex gap-1" onSubmit={handleSubmitGame}>
+              <button className="btn-primary">Jugar</button>
+          </form>
+          <Link onClick={()=>setMatch({deck_id: ""})} className="btn-secondary" to="/" >Salir</Link>
         </div>
         :
         locationURL === "/instructions" ?
@@ -36,7 +37,7 @@ const NavBar = () => {
       }
     </nav>
     </>
-  )
-}
+  );
+};
 
-export default NavBar
+export default NavBar;
