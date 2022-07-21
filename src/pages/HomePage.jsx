@@ -1,4 +1,4 @@
-import {  Route, Routes, Link, Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import usePlayers from "../hooks/usePlayers";
 const HomePage = ({sweetAlert}) => {
@@ -16,6 +16,7 @@ const HomePage = ({sweetAlert}) => {
 
   const navigate = useNavigate();
 
+  //Validar que se escriban los nombres de los jugadores
   const handleGamePage = (e) =>{
     if(player1.name === "" || player2.name === ""){
       e.preventDefault();
