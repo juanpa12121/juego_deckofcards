@@ -7,11 +7,11 @@ const HomePage = ({sweetAlert}) => {
 
   //Guardar nombre del primer jugador, digitado en el estado player1
   const handleFrmInputChangeP1 = (e) => {
-    setPlayer1({name: e.target.value});
+    setPlayer1({...player1, name: e.target.value});
   };
   //Guardar nombre del segundo jugador, digitado en el estado player2
   const handleFrmInputChangeP2 = (e) => {
-    setPlayer2({name: e.target.value});
+    setPlayer2({...player2, name: e.target.value});
   }
 
   const navigate = useNavigate();
