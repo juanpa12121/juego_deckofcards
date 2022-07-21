@@ -1,60 +1,68 @@
-import {  Route, Routes, Link, Outlet, useNavigate } from "react-router-dom"
 import NavBar from "../components/NavBar";
 import usePlayers from "../hooks/usePlayers";
+import {v4 as uuidv4} from "uuid";
+
 const GamePage = () => {
 
   const {player1, player2} = usePlayers();
-
-    const navigate = useNavigate();
-
-    const handleHome = () =>{
-      navigate("/", {replace: true});
-    }
-
   return (
     <>
       <NavBar/>
         <div className="mt-20 xs:mt-0 pt-1 xs:pt-32 bg-slate-800 container">
-          <div className="flex flex-col xs:flex-row overflow-y-auto justify-around py-5 text-white">
+          <div className="flex flex-col my-40 xs:my-0 xs:flex-row overflow-y-auto justify-around py-5 text-white">
             <div className="container">
-              <h2 className="border-b border-b-slate-400">Jugador 1: {player1.name} </h2>
-              
+              <h3>Jugador 1: <span className="text-gray-400">{player1.name}</span></h3>
+              <div className="border-b border-slate-400 mt-3"></div>
                 <div className="py-2">
-                  <h3>Cartas opcionadas</h3>
+                  <h4>Cartas opcionadas</h4>
                   <div className="flex justify-center flex-col sm:flex-row items-center py-4">
-                    <img className="carta-opcionada" src="http://deckofcardsapi.com/static/img/KH.png"></img>
-                    <img className="carta-opcionada" src="http://deckofcardsapi.com/static/img/KH.png"></img>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
                   </div>
               </div>
-              <hr></hr>
+              <div className="border-b border-slate-400 mt-3"></div>
               <div className="py-2 cartas-obtenidas">
-                <h3>Cartas obtenidas</h3>
+                <h4>Cartas obtenidas</h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center cartas-obtenidas">
-                  <img className="carta-obtenida" src="http://deckofcardsapi.com/static/img/KH.png"></img>
-                  <img className="carta-obtenida" src="http://deckofcardsapi.com/static/img/KH.png"></img>
-                  <img className="carta-obtenida" src="http://deckofcardsapi.com/static/img/KH.png"></img>
-                  <img className="carta-obtenida" src="http://deckofcardsapi.com/static/img/KH.png"></img>
+                  {/* Recorrer cartas del jugador 1 */}
+                  {player1.cards.map(card =>(
+                    <img key={uuidv4()} alt={"card-"+ card.suit.toLowerCase()} className="carta-obtenida" src={card.image}></img>
+                  ))}
+
                 </div>
               </div>
             </div>
             <div className="container">
-              <h2>Jugador 2: {player2.name} </h2>
-              <hr></hr>
+            <h3>Jugador 2: <span className="text-gray-400">{player2.name}</span></h3>
+              <div className="border-b border-slate-400 mt-3"></div>
               <div className="py-2">
-                <h3>Cartas opcionadas</h3>
+                <h4>Cartas opcionadas</h4>
                 <div className="flex justify-center flex-col sm:flex-row items-center py-4">
-                  <img className="carta-opcionada" src="http://deckofcardsapi.com/static/img/KH.png"></img>
-                  <img className="carta-opcionada" src="http://deckofcardsapi.com/static/img/KH.png"></img>
+                <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
                 </div>
             </div>
-            <hr></hr>
-              <div className="py-2 ">
-                <h3>Cartas obtenidas</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-items-center cartas-obtenidas">
-                  <img className="carta-obtenida" src="http://deckofcardsapi.com/static/img/KH.png"></img>
-                  <img className="carta-obtenida" src="http://deckofcardsapi.com/static/img/KH.png"></img>
+            <div className="border-b border-slate-400 mt-3"></div>
+            <div className="py-2 ">
+              <h4>Cartas obtenidas</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-items-center cartas-obtenidas">
+                {player2.cards.map(card =>(
+                  <img key={uuidv4()} alt={"card-"+ card.suit.toLowerCase()} className="carta-obtenida" src={card.image}></img>
+                ))}
                 </div>
-              </div>
+            </div>
             </div>
           </div>
         </div>
