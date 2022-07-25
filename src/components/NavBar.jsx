@@ -2,9 +2,11 @@ import { Link, useLocation } from "react-router-dom"
 import usePlayers from "../hooks/usePlayers";
 
 const NavBar = () => {
-  const { handleSubmitGame, setMatch } = usePlayers()
+  const { handleSubmitGame, handleExitGame, setMatch, winner } = usePlayers()
   const location = useLocation();
   const locationURL = location.pathname;
+
+  
 
   return (
     <>
@@ -24,9 +26,13 @@ const NavBar = () => {
         locationURL === "/game" ?
         <div className="flex gap-1">
           <form className="flex gap-1" onSubmit={handleSubmitGame}>
+            {
+              winner.status === true ? ""
+              :
               <button className="btn-primary">Jugar</button>
+            }
           </form>
-          <Link onClick={()=>setMatch({deck_id: ""})} className="btn-secondary" to="/" >Salir</Link>
+          <Link onClick={handleExitGame} className="btn-secondary" to="/" >Salir</Link>
         </div>
         :
         locationURL === "/instructions" ?
