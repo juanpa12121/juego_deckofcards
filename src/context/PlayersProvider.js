@@ -77,29 +77,29 @@ const PlayersProvider = ({ children }) =>{
             setPlayer2({...player2, cards: [...player2.cards, newCards[1]]});
 
             //Variables que guardan la primera coincidencia de carta duplciada
-            const duplicatesP1 = player1.cards.find((card) => card.code.charAt(0) === newCards[0].code.charAt(0));
-            const duplicatesP2 = player2.cards.find((card) => card.code.charAt(0) === newCards[1].code.charAt(0));
-            // console.log("Carta repetida player1: "+ repetido2)
-            // console.log("Carta repetida player2: " + repetido)
+            const duplicateP1 = player1.cards.find((card) => card.code.charAt(0) === newCards[0].code.charAt(0));
+            const duplicateP2 = player2.cards.find((card) => card.code.charAt(0) === newCards[1].code.charAt(0));
 
-            if((duplicatesP1 !== undefined) && (duplicatesP1 && duplicatesP2) === undefined){
+            if((duplicateP1 !== undefined) && (duplicateP1 && duplicateP2) === undefined){
                 setWinner({status: true, player: "player1"});
                 sweetAlert("success", "Ganador", "Ganó el Jugador 1", true);
                 // setPlayer1({...player1, cards: [...player1.cards, newCard ], repeatedCards: [...player1.repeatedCards, repetido, newCard]});
-                setDupCardsPlayer1([...dupCardsPlayer1, duplicatesP1, newCards[0]]);
-            }else if((duplicatesP2 !== undefined) && (duplicatesP1 && duplicatesP2) === undefined){
+                setDupCardsPlayer1([...dupCardsPlayer1, duplicateP1, newCards[0]]);
+            }else if((duplicateP2 !== undefined) && (duplicateP1 && duplicateP2) === undefined){
                 setWinner({status: true, player: "player2"});
                 sweetAlert("success", "Ganador", "Ganó el Jugador 2", true);
                 //setPlayer2({...player2, cards: [...player2.cards, newCard2 ], repeatedCards: [...player2.repeatedCards, repetido2, newCard2]});
-                setDupCardsPlayer2([...dupCardsPlayer2, duplicatesP2, newCards[1]]);
-            }else if(duplicatesP1 !== undefined && duplicatesP2 !== undefined){
+                setDupCardsPlayer2([...dupCardsPlayer2, duplicateP2, newCards[1]]);
+            }else if(duplicateP1 !== undefined && duplicateP2 !== undefined){
                 setWinner({status: true, player: "draw"});
                 sweetAlert("warning", "Empate", "Empate", true);
                 // setPlayer1({...player1, cards: [...player1.cards, newCard ], repeatedCards: [...player1.repeatedCards, repetido, newCard]});
                 // setPlayer2({...player2, cards: [...player2.cards, newCard2 ], repeatedCards: [...player2.repeatedCards, repetido2, newCard2]});
-                setDupCardsPlayer1([...dupCardsPlayer1, duplicatesP1, newCards[0]]);
-                setDupCardsPlayer2([...dupCardsPlayer2, duplicatesP2, newCards[1]]); 
+                setDupCardsPlayer1([...dupCardsPlayer1, duplicateP1, newCards[0]]);
+                setDupCardsPlayer2([...dupCardsPlayer2, duplicateP2, newCards[1]]); 
             }
+
+            
         }
     }
 
