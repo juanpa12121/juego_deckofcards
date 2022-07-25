@@ -15,12 +15,13 @@ html {
     box-sizing: inherit;
 }
 
-#root{
+
+body{
     @apply bg-slate-800
 }
 
 .bg-cartas{
-    background-image: url('/./public/deckofcards3.png');
+    background-image: url('/./public/deckofcards3.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -43,7 +44,7 @@ html {
         @apply text-2xl
     }
     label{
-        @apply peer-focus:font-medium absolute text-2xl text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6
+        @apply peer-focus:font-medium absolute text-3xl text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6
     }
 }
 
