@@ -77,18 +77,13 @@ const PlayersProvider = ({ children }) =>{
             if((duplicateP1 !== undefined) && (duplicateP1 && duplicateP2) === undefined){
                 setWinner({status: true, player: "player1"});
                 sweetAlert("success", "Ganador", "Ganó el Jugador 1", true);
-                // setPlayer1({...player1, cards: [...player1.cards, newCard ], repeatedCards: [...player1.repeatedCards, repetido, newCard]});
                 setDupCardsPlayer1([...dupCardsPlayer1, duplicateP1, newCards[0]]);
             }else if((duplicateP2 !== undefined) && (duplicateP1 && duplicateP2) === undefined){
                 setWinner({status: true, player: "player2"});
                 sweetAlert("success", "Ganador", "Ganó el Jugador 2", true);
-                //setPlayer2({...player2, cards: [...player2.cards, newCard2 ], repeatedCards: [...player2.repeatedCards, repetido2, newCard2]});
                 setDupCardsPlayer2([...dupCardsPlayer2, duplicateP2, newCards[1]]);
             }else if(duplicateP1 !== undefined && duplicateP2 !== undefined){
                 setWinner({status: true, player: "draw"});
-                //sweetAlert("warning", "Empate", "Empate", true);
-                // setPlayer1({...player1, cards: [...player1.cards, newCard ], repeatedCards: [...player1.repeatedCards, repetido, newCard]});
-                // setPlayer2({...player2, cards: [...player2.cards, newCard2 ], repeatedCards: [...player2.repeatedCards, repetido2, newCard2]});
                 setDupCardsPlayer1([...dupCardsPlayer1, duplicateP1, newCards[0]]);
                 setDupCardsPlayer2([...dupCardsPlayer2, duplicateP2, newCards[1]]);
             }

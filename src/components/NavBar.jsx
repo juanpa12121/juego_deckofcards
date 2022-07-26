@@ -2,11 +2,11 @@ import { Link, useLocation } from "react-router-dom"
 import usePlayers from "../hooks/usePlayers";
 
 const NavBar = () => {
-  const { handleSubmitGame, handleExitGame, setMatch, winner } = usePlayers()
+  const { handleSubmitGame, handleExitGame, winner } = usePlayers()
+
+  //Variable para saber en que ruta estamos
   const location = useLocation();
   const locationURL = location.pathname;
-
-  
 
   return (
     <>
@@ -39,7 +39,8 @@ const NavBar = () => {
         <div className="flex-grow lg:flex lg:items-center lg:w-auto">
         </div>
         :
-        ""
+        <div className="flex-grow lg:flex lg:items-center lg:w-auto">
+        </div>
       }
     </nav>
     </>
