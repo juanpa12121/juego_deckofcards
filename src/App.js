@@ -7,8 +7,9 @@ import Footer from "./components/Footer";
 import { PlayersProvider } from "./context/PlayersProvider";
 import Swal from 'sweetalert2';
 import NavBar from "./components/NavBar";
+import CardValuesPage from "./pages/CardValuesPage";
+
 const App = () => {
-  
   function sweetAlert(icon, title, text, showConfirmButton, timer){
     Swal.fire({
         icon: icon,
@@ -26,9 +27,10 @@ const App = () => {
           <Routes>
             <Route path="/" element={ <HomePage sweetAlert={sweetAlert} />} />
             <Route path="/game" element={<GamePage />} />
-            <Route path="/instructions" element={<InstructionsPage />} />
+            <Route path="/instructions/*" element={<InstructionsPage />} >
+              <Route path="card-values" element={<CardValuesPage />} />
+            </Route >
           </Routes>
-
           <Footer/>
         </BrowserRouter>
       </PlayersProvider>
