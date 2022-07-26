@@ -11,7 +11,16 @@ const GamePage = () => {
             <div className="container">
               <div className="flex justify-between">
                 <h3>Jugador 1: <span className="text-gray-400">{player1.name}</span> </h3>
-                <h3><span className={winner.player === "player1" ? "text-green-400" : "text-red-400"}>{winner.player === "player1" ? "GANADOR" : winner.player==="player2" ? "PERDEDOR" : ""}</span></h3>
+                <h3>
+                  <span className={winner.player === "player1" ? "text-green-400" : winner.player === "player2" ? "text-red-400": "text-orange-400"}>
+                    {
+                      winner.player === "player1" ? "GANADOR" : 
+                      winner.player==="player2" ? "PERDEDOR" : 
+                      winner.player === "draw" ? "EMPATE TOTAL" : 
+                      ""
+                    }
+                  </span>
+                </h3>
               </div>
               <div className="border-b border-slate-400 mt-3"></div>
                 <div className="py-2">
@@ -38,7 +47,17 @@ const GamePage = () => {
             <div className="container">
             <div className="flex justify-between">
                 <h3>Jugador 2: <span className="text-gray-400">{player2.name}</span></h3>
-                <h3><span className={winner.player === "player2" ? "text-green-400" : "text-red-400"}>{winner.player === "player2" ? "GANADOR" : winner.player==="player1" ? "PERDEDOR" : ""}</span></h3>
+                <h3>
+                  <span 
+                    className={winner.player === "player2" ? "text-green-400" : winner.player === "player1" ? "text-red-400" : "text-orange-400"}>
+                    {
+                      winner.player === "player2" ? "GANADOR" : 
+                      winner.player==="player1" ? "PERDEDOR" :
+                      winner.player==="draw" ? "EMPATE TOTAL" : 
+                      ""
+                    }
+                  </span>
+                </h3>
               </div>
               <div className="border-b border-slate-400 mt-3"></div>
               <div className="py-2">

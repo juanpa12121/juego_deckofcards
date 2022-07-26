@@ -9,12 +9,12 @@ const PlayersContext = createContext();
 const PlayersProvider = ({ children }) =>{
 
     //Estados para guardar información de los jugadores
-    const [player1, setPlayer1] = useState({deck_id: "", name: "", cards:[] });
-    const [player2, setPlayer2] = useState({deck_id: "", name: "", cards:[] });
+    const [player1, setPlayer1] = useState({ name: "", cards:[] });
+    const [player2, setPlayer2] = useState({ name: "", cards:[] });
 
     //Estados para guardar las cartas duplicadas de cada jugador
-    const [dupCardsPlayer1, setDupCardsPlayer1] = useState([])
-    const [dupCardsPlayer2, setDupCardsPlayer2] = useState([])
+    const [dupCardsPlayer1, setDupCardsPlayer1] = useState([]);
+    const [dupCardsPlayer2, setDupCardsPlayer2] = useState([]);
 
     //Estado para guardar id de la partida
     const [match, setMatch] = useState({});
@@ -33,33 +33,27 @@ const PlayersProvider = ({ children }) =>{
         });
     }
 
-        //Generar id de la partida
-        const generateId = async(state, setState) =>{
-            const urlApiId = "http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1";
-            const {data} = await axios(urlApiId);
-            //Asignar Id sin borrar el nombre
-            setState({...state, deck_id: data.deck_id});
-        }
+    //Generar id de la partida
+    const generateId = async() =>{
+        const urlApiId = "http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1";
+        const {data} = await axios(urlApiId);
+        setMatch({deck_id: data.deck_id});
+    }
 
-        useEffect(() => {
-            generateId(match, setMatch);
-        },[]);
+    useEffect(() => {
+        generateId();
+    },[]);
 
-        //Generar las cartas iniciales de cada jugador
-        useEffect(() => {
+    //Generar las cartas iniciales de cada jugador
+    useEffect(() => {
         const generateInitialCards = async () =>{
             const  urlApiCards = `http://deckofcardsapi.com/api/deck/${match.deck_id}/draw/?count=2`;
-            await fetch(urlApiCards)
-            .then(res =>  res.json())
-            .then(data => {
-                setPlayer1({ ...player1, cards: [data.cards[0]] });
-                setPlayer2({ ...player1, cards: [data.cards[1]] });
-                console.log("DATOS API: " +Object.values(data.cards[0]))
-            })
+            const {data} = await axios(urlApiCards);
+            setPlayer1({ ...player1, cards: [data.cards[0]] });
+            setPlayer2({ ...player1, cards: [data.cards[1]] });
         }
         generateInitialCards();
     }, [match]);
-    
 
     // Método para generar una nueva carta para cada jugador
     const handleSubmitGame = async (e) =>{
@@ -92,20 +86,54 @@ const PlayersProvider = ({ children }) =>{
                 setDupCardsPlayer2([...dupCardsPlayer2, duplicateP2, newCards[1]]);
             }else if(duplicateP1 !== undefined && duplicateP2 !== undefined){
                 setWinner({status: true, player: "draw"});
-                sweetAlert("warning", "Empate", "Empate", true);
+                //sweetAlert("warning", "Empate", "Empate", true);
                 // setPlayer1({...player1, cards: [...player1.cards, newCard ], repeatedCards: [...player1.repeatedCards, repetido, newCard]});
                 // setPlayer2({...player2, cards: [...player2.cards, newCard2 ], repeatedCards: [...player2.repeatedCards, repetido2, newCard2]});
                 setDupCardsPlayer1([...dupCardsPlayer1, duplicateP1, newCards[0]]);
-                setDupCardsPlayer2([...dupCardsPlayer2, duplicateP2, newCards[1]]); 
+                setDupCardsPlayer2([...dupCardsPlayer2, duplicateP2, newCards[1]]);
             }
-
-            
         }
     }
 
     useEffect(() =>{    
         handleSubmitGame();
     },[handleSubmitGame]);
+
+    
+    useEffect(() => {
+        //Metodo para desempatar partida
+        const tieBreaker = () =>{
+            //Asignar puntajes a las suit de cada carta
+            //Entre mayor valor, mayor puntaje
+            const cardsValues = {'CLUBS': 100, 'DIAMONDS': 200, 'SPADES': 300, 'HEARTS': 400}
+    
+            //Variables para guardar los puntajes de cada jugador
+            let player1Score = 0;
+            let player2Score = 0;
+            
+            //Recorrer las cartas duplicadas de cada jugador
+            //Sumar los puntajes de cada suit de cada carta duplicada
+            dupCardsPlayer1.forEach((card) => {
+                player1Score += cardsValues[card.suit];
+            })
+            dupCardsPlayer2.forEach((card) => {
+                player2Score += cardsValues[card.suit];
+            })
+    
+            //Definir ganadores
+            if(player1Score > player2Score){
+                setWinner({...winner, player: "player1"});
+                sweetAlert("success", "Ganador por Desempate Jugador 1", `Con ${player1Score} puntos frente a  ${player2Score}`, true);
+            }else if(player1Score < player2Score){
+                setWinner({...winner, player: "player2"});
+                sweetAlert("success", "Ganador por Desempate Jugador 2", `Con ${player2Score} puntos frente a ${player1Score}`, true);
+            }else if(player1Score === player2Score && player1Score !== 0 && player2Score !== 0){
+                //setWinner({status: true, player: "tie"});
+                sweetAlert("success", "Empate Total", `Jugador1: ${player1Score} puntos. Jugador 2: ${player2Score} puntos`, true);
+            }
+        }
+      tieBreaker();
+    }, [winner.player === "draw"]);
 
     // Funcion para salirse, reiniciar datos y el juego
     const handleExitGame = () =>{
