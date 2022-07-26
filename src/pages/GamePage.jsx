@@ -35,7 +35,7 @@ const GamePage = () => {
               <div className="border-b border-slate-400 mt-3"></div>
               <div className="py-2 cartas-obtenidas">
                 <h4>Cartas obtenidas</h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center cartas-obtenidas">
+                <div className="grid grid-cols-2 sm:grid-cols-3 justify-items-center cartas-obtenidas">
                   {/* Recorrer cartas del jugador 1 */}
                   {player1.cards.map(card =>(
                     <img loading="lazy" key={uuidv4()} alt={"card-"+ card.suit.toLowerCase()} className="carta-obtenida" src={card.image}></img>
@@ -72,7 +72,7 @@ const GamePage = () => {
             <div className="border-b border-slate-400 mt-3"></div>
             <div className="py-2 ">
               <h4>Cartas obtenidas</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-items-center cartas-obtenidas">
+              <div className="grid grid-cols-2 sm:grid-cols-3 justify-items-center cartas-obtenidas">
                 {player2.cards.map(card =>(
                   <img loading="lazy" key={uuidv4()} alt={"card-"+ card.suit.toLowerCase()} className="carta-obtenida" src={card.image}></img>
                 ))}

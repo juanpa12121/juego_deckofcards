@@ -73,6 +73,7 @@ const PlayersProvider = ({ children }) =>{
             //Variables que guardan la primera coincidencia de carta duplciada
             const duplicateP1 = player1.cards.find((card) => card.code.charAt(0) === newCards[0].code.charAt(0));
             const duplicateP2 = player2.cards.find((card) => card.code.charAt(0) === newCards[1].code.charAt(0));
+            
 
             if((duplicateP1 !== undefined) && (duplicateP1 && duplicateP2) === undefined){
                 setWinner({status: true, player: "player1"});
@@ -134,11 +135,11 @@ const PlayersProvider = ({ children }) =>{
     const handleExitGame = () =>{
         setMatch({deck_id: ""});
         setWinner({status: false, player: ""});
-        setPlayer1({deck_id: "", name: "", cards: []});
-        setPlayer2({deck_id: "", name: "", cards: []});
+        setPlayer1({ name: "", cards: []});
+        setPlayer2({ name: "", cards: []});
         setDupCardsPlayer1([]);
         setDupCardsPlayer2([]);
-        generateId(match, setMatch);
+        generateId();
     }
 
     return(
