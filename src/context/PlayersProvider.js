@@ -32,6 +32,15 @@ const PlayersProvider = ({ children }) =>{
         });
     }
 
+    //Guardar nombre del primer jugador, digitado en el estado player1
+    const handleFrmInputChangeP1 = (e) => {
+        setPlayer1({...player1, name: e.target.value});
+    };
+    //Guardar nombre del segundo jugador, digitado en el estado player2
+    const handleFrmInputChangeP2 = (e) => {
+        setPlayer2({...player2, name: e.target.value});
+    }
+
     //Generar id de la partida
     const generateId = async () =>{
         const urlApiId = "http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1";
@@ -75,14 +84,14 @@ const PlayersProvider = ({ children }) =>{
 
             if((duplicateP1 !== undefined) && (duplicateP2) === undefined){
                 setWinner({status: true, player: "player1"});
-                sweetAlert("success", "Ganador", "Ganó el Jugador 1", true);
+                sweetAlert("success", `Ganador: ${player1.name}`, "Ganó el Jugador 1", true);
                 setDupCardsPlayer1([...dupCardsPlayer1, duplicateP1, newCards[0]]);
             }else if((duplicateP2 !== undefined) && (duplicateP1) === undefined){
                 setWinner({status: true, player: "player2"});
-                sweetAlert("success", "Ganador", "Ganó el Jugador 2", true);
+                sweetAlert("success", `Ganador: ${player2.name}`, "Ganó el Jugador 2", true);
                 setDupCardsPlayer2([...dupCardsPlayer2, duplicateP2, newCards[1]]);
             }else if(duplicateP1 !== undefined && duplicateP2 !== undefined){
-                setWinner({status: true, player: "draw"});
+                setWinner({status: true, player: "tie"});
                 setDupCardsPlayer1([...dupCardsPlayer1, duplicateP1, newCards[0]]);
                 setDupCardsPlayer2([...dupCardsPlayer2, duplicateP2, newCards[1]]);
             }
@@ -117,30 +126,31 @@ const PlayersProvider = ({ children }) =>{
             //Definir ganadores
             if(player1Score > player2Score){
                 setWinner({...winner, player: "player1"});
-                sweetAlert("success", "Ganador por Desempate Jugador 1", `Con ${player1Score} puntos frente a  ${player2Score}`, true);
+                sweetAlert("success", `Ganador: ${player1.name}`, `Ganador por Desempate Jugador 1 con ${player1Score} puntos frente a ${player2Score}`, true);
             }else if(player1Score < player2Score){
                 setWinner({...winner, player: "player2"});
-                sweetAlert("success", "Ganador por Desempate Jugador 2", `Con ${player2Score} puntos frente a ${player1Score}`, true);
-            }else if(player1Score === player2Score && player1Score != 0 && player2Score != 0){
+                sweetAlert("success", `Ganador: ${player2.name}`, `Ganador por Desempate Jugador 2 con ${player2Score} puntos frente a ${player1Score}`, true);
+            }else if(player1Score === player2Score && player1Score !== 0 && player2Score !== 0){
+                //setWinner({status: true, player: "tie"});
                 sweetAlert("success", "Empate Total", `Jugador1: ${player1Score} puntos. Jugador 2: ${player2Score} puntos`, true);
             }
         }
       tieBreaker();
-    }, [winner.player === "draw"]);
+    }, [winner.player === "tie"]);
 
     // Funcion para salirse, reiniciar datos y el juego
     const handleExitGame = () =>{
         setMatch({deck_id: ""});
         setWinner({status: false, player: ""});
-        setPlayer1({deck_id: "", name: "", cards: []});
-        setPlayer2({deck_id: "", name: "", cards: []});
+        setPlayer1({ name: "", cards: []});
+        setPlayer2({ name: "", cards: []});
         setDupCardsPlayer1([]);
         setDupCardsPlayer2([]);
-        generateId(match, setMatch);
+        generateId();
     }
 
     return(
-        <PlayersContext.Provider value={{ generateId, player1, setPlayer1, player2, setPlayer2, dupCardsPlayer1, dupCardsPlayer2, winner, handleSubmitGame, handleExitGame }}>
+        <PlayersContext.Provider value={{sweetAlert, handleFrmInputChangeP1, handleFrmInputChangeP2, generateId, player1, setPlayer1, player2, setPlayer2, dupCardsPlayer1, dupCardsPlayer2, winner, handleSubmitGame, handleExitGame }}>
             {children}
         </PlayersContext.Provider>
     );

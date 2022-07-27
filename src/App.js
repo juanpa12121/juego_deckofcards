@@ -10,25 +10,15 @@ import NavBar from "./components/NavBar";
 import CardValuesPage from "./pages/CardValuesPage";
 
 const App = () => {
-  function sweetAlert(icon, title, text, showConfirmButton, timer){
-    Swal.fire({
-        icon: icon,
-        title: title,
-        text: text,
-        showConfirmButton: showConfirmButton,
-        timer: timer
-    });
-  }
-
   return (
       <PlayersProvider>
         <BrowserRouter>
         <NavBar/>
           <Routes>
-            <Route path="/" element={ <HomePage sweetAlert={sweetAlert}/>} />
-            <Route path="/game" element={<GamePage/>} />
-            <Route path="/instructions/*" element={<InstructionsPage/>} >
-              <Route path="card-values" element={<CardValuesPage/>} />
+            <Route path="/" element={ <HomePage />} />
+            <Route path="/game" element={<GamePage />} />
+            <Route path="/instructions/*" element={<InstructionsPage />} >
+              <Route path="card-values" element={<CardValuesPage />} />
             </Route >
           </Routes>
           <Footer/>
