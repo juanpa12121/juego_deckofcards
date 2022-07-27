@@ -77,11 +77,11 @@ const PlayersProvider = ({ children }) =>{
 
             if((duplicateP1 !== undefined) && (duplicateP1 && duplicateP2) === undefined){
                 setWinner({status: true, player: "player1"});
-                sweetAlert("success", "Ganador", "Ganó el Jugador 1", true);
+                sweetAlert("success", `Ganador: ${player1.name}`, "Ganó el Jugador 1", true);
                 setDupCardsPlayer1([...dupCardsPlayer1, duplicateP1, newCards[0]]);
             }else if((duplicateP2 !== undefined) && (duplicateP1 && duplicateP2) === undefined){
                 setWinner({status: true, player: "player2"});
-                sweetAlert("success", "Ganador", "Ganó el Jugador 2", true);
+                sweetAlert("success", `Ganador: ${player2.name}`, "Ganó el Jugador 2", true);
                 setDupCardsPlayer2([...dupCardsPlayer2, duplicateP2, newCards[1]]);
             }else if(duplicateP1 !== undefined && duplicateP2 !== undefined){
                 setWinner({status: true, player: "draw"});
@@ -119,10 +119,10 @@ const PlayersProvider = ({ children }) =>{
             //Definir ganadores
             if(player1Score > player2Score){
                 setWinner({...winner, player: "player1"});
-                sweetAlert("success", "Ganador por Desempate Jugador 1", `Con ${player1Score} puntos frente a  ${player2Score}`, true);
+                sweetAlert("success", `Ganador: ${player1.name}`, "Ganador por Desempate Jugador 1", `Con ${player1Score} puntos frente a ${player2Score}`, true);
             }else if(player1Score < player2Score){
                 setWinner({...winner, player: "player2"});
-                sweetAlert("success", "Ganador por Desempate Jugador 2", `Con ${player2Score} puntos frente a ${player1Score}`, true);
+                sweetAlert("success", `Ganador: ${player2.name}`,  "Ganador por Desempate Jugador 2", `Con ${player2Score} puntos frente a ${player1Score}`, true);
             }else if(player1Score === player2Score && player1Score !== 0 && player2Score !== 0){
                 //setWinner({status: true, player: "tie"});
                 sweetAlert("success", "Empate Total", `Jugador1: ${player1Score} puntos. Jugador 2: ${player2Score} puntos`, true);
