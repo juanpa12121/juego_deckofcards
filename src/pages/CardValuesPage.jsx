@@ -1,5 +1,5 @@
-import React from 'react'
-import { GiHearts, GiSpades, GiDiamonds, GiClubs } from 'react-icons/gi'
+import React from 'react';
+import { GiHearts, GiSpades, GiDiamonds, GiClubs } from 'react-icons/gi';
 const CardValuesPage = () => {
   return (
     <>

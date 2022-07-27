@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import Swal from 'sweetalert2';
@@ -34,7 +33,7 @@ const PlayersProvider = ({ children }) =>{
     }
 
     //Generar id de la partida
-    const generateId = async() =>{
+    const generateId = async () =>{
         const urlApiId = "http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1";
         const {data} = await axios(urlApiId);
         setMatch({deck_id: data.deck_id});
@@ -56,7 +55,7 @@ const PlayersProvider = ({ children }) =>{
     }, [match]);
 
     // Método para generar una nueva carta para cada jugador
-    const handleSubmitGame = async (e) =>{
+    const handleSubmitGame = async(e) =>{
         if(e && e.preventDefault){  
             e.preventDefault();
             const urlApiCards = `http://deckofcardsapi.com/api/deck/${match.deck_id}/draw/?count=2`;
@@ -70,15 +69,15 @@ const PlayersProvider = ({ children }) =>{
             setPlayer1({...player1, cards: [...player1.cards, newCards[0]]});
             setPlayer2({...player2, cards: [...player2.cards, newCards[1]]});
 
-            //Variables que guardan la primera coincidencia de carta duplciada
+            //Variables que guardan la primera coincidencia de carta duplicada
             const duplicateP1 = player1.cards.find((card) => card.code.charAt(0) === newCards[0].code.charAt(0));
             const duplicateP2 = player2.cards.find((card) => card.code.charAt(0) === newCards[1].code.charAt(0));
 
-            if((duplicateP1 !== undefined) && (duplicateP1 && duplicateP2) === undefined){
+            if((duplicateP1 !== undefined) && (duplicateP2) === undefined){
                 setWinner({status: true, player: "player1"});
                 sweetAlert("success", "Ganador", "Ganó el Jugador 1", true);
                 setDupCardsPlayer1([...dupCardsPlayer1, duplicateP1, newCards[0]]);
-            }else if((duplicateP2 !== undefined) && (duplicateP1 && duplicateP2) === undefined){
+            }else if((duplicateP2 !== undefined) && (duplicateP1) === undefined){
                 setWinner({status: true, player: "player2"});
                 sweetAlert("success", "Ganador", "Ganó el Jugador 2", true);
                 setDupCardsPlayer2([...dupCardsPlayer2, duplicateP2, newCards[1]]);
@@ -90,9 +89,9 @@ const PlayersProvider = ({ children }) =>{
         }
     }
 
-    useEffect(() =>{    
-        handleSubmitGame();
-    },[handleSubmitGame]);
+    // useEffect(() =>{    
+    //     handleSubmitGame();
+    // },[handleSubmitGame]);
 
     
     useEffect(() => {
@@ -122,8 +121,7 @@ const PlayersProvider = ({ children }) =>{
             }else if(player1Score < player2Score){
                 setWinner({...winner, player: "player2"});
                 sweetAlert("success", "Ganador por Desempate Jugador 2", `Con ${player2Score} puntos frente a ${player1Score}`, true);
-            }else if(player1Score === player2Score && player1Score !== 0 && player2Score !== 0){
-                //setWinner({status: true, player: "tie"});
+            }else if(player1Score === player2Score && player1Score != 0 && player2Score != 0){
                 sweetAlert("success", "Empate Total", `Jugador1: ${player1Score} puntos. Jugador 2: ${player2Score} puntos`, true);
             }
         }

@@ -25,10 +25,10 @@ const App = () => {
         <BrowserRouter>
         <NavBar/>
           <Routes>
-            <Route path="/" element={ <HomePage sweetAlert={sweetAlert} />} />
-            <Route path="/game" element={<GamePage />} />
-            <Route path="/instructions/*" element={<InstructionsPage />} >
-              <Route path="card-values" element={<CardValuesPage />} />
+            <Route path="/" element={ <HomePage sweetAlert={sweetAlert}/>} />
+            <Route path="/game" element={<GamePage/>} />
+            <Route path="/instructions/*" element={<InstructionsPage/>} >
+              <Route path="card-values" element={<CardValuesPage/>} />
             </Route >
           </Routes>
           <Footer/>

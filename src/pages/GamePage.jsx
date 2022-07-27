@@ -2,8 +2,9 @@ import usePlayers from "../hooks/usePlayers";
 import {v4 as uuidv4} from "uuid";
 
 const GamePage = () => {
-
+  
   const {player1, player2, dupCardsPlayer1, dupCardsPlayer2, winner} = usePlayers();
+  
   return (
     <>
         <div className="mt-20 xs:mt-0 pt-1 xs:pt-32 bg-slate-800 container">
