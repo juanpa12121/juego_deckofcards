@@ -33,6 +33,15 @@ const PlayersProvider = ({ children }) =>{
         });
     }
 
+    //Guardar nombre del primer jugador, digitado en el estado player1
+    const handleFrmInputChangeP1 = (e) => {
+        setPlayer1({...player1, name: e.target.value});
+    };
+    //Guardar nombre del segundo jugador, digitado en el estado player2
+    const handleFrmInputChangeP2 = (e) => {
+        setPlayer2({...player2, name: e.target.value});
+    }
+
     //Generar id de la partida
     const generateId = async() =>{
         const urlApiId = "http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1";
@@ -73,18 +82,17 @@ const PlayersProvider = ({ children }) =>{
             //Variables que guardan la primera coincidencia de carta duplciada
             const duplicateP1 = player1.cards.find((card) => card.code.charAt(0) === newCards[0].code.charAt(0));
             const duplicateP2 = player2.cards.find((card) => card.code.charAt(0) === newCards[1].code.charAt(0));
-            
 
-            if((duplicateP1 !== undefined) && (duplicateP1 && duplicateP2) === undefined){
+            if((duplicateP1 !== undefined) && (duplicateP2) === undefined){
                 setWinner({status: true, player: "player1"});
                 sweetAlert("success", `Ganador: ${player1.name}`, "Ganó el Jugador 1", true);
                 setDupCardsPlayer1([...dupCardsPlayer1, duplicateP1, newCards[0]]);
-            }else if((duplicateP2 !== undefined) && (duplicateP1 && duplicateP2) === undefined){
+            }else if((duplicateP2 !== undefined) && (duplicateP1) === undefined){
                 setWinner({status: true, player: "player2"});
                 sweetAlert("success", `Ganador: ${player2.name}`, "Ganó el Jugador 2", true);
                 setDupCardsPlayer2([...dupCardsPlayer2, duplicateP2, newCards[1]]);
             }else if(duplicateP1 !== undefined && duplicateP2 !== undefined){
-                setWinner({status: true, player: "draw"});
+                setWinner({status: true, player: "tie"});
                 setDupCardsPlayer1([...dupCardsPlayer1, duplicateP1, newCards[0]]);
                 setDupCardsPlayer2([...dupCardsPlayer2, duplicateP2, newCards[1]]);
             }
@@ -119,10 +127,10 @@ const PlayersProvider = ({ children }) =>{
             //Definir ganadores
             if(player1Score > player2Score){
                 setWinner({...winner, player: "player1"});
-                sweetAlert("success", `Ganador: ${player1.name}`, "Ganador por Desempate Jugador 1", `Con ${player1Score} puntos frente a ${player2Score}`, true);
+                sweetAlert("success", `Ganador: ${player1.name}`, `Ganador por Desempate Jugador 1 con ${player1Score} puntos frente a ${player2Score}`, true);
             }else if(player1Score < player2Score){
                 setWinner({...winner, player: "player2"});
-                sweetAlert("success", `Ganador: ${player2.name}`,  "Ganador por Desempate Jugador 2", `Con ${player2Score} puntos frente a ${player1Score}`, true);
+                sweetAlert("success", `Ganador: ${player2.name}`, `Ganador por Desempate Jugador 2 con ${player2Score} puntos frente a ${player1Score}`, true);
             }else if(player1Score === player2Score && player1Score !== 0 && player2Score !== 0){
                 //setWinner({status: true, player: "tie"});
                 sweetAlert("success", "Empate Total", `Jugador1: ${player1Score} puntos. Jugador 2: ${player2Score} puntos`, true);
@@ -143,7 +151,7 @@ const PlayersProvider = ({ children }) =>{
     }
 
     return(
-        <PlayersContext.Provider value={{ generateId, player1, setPlayer1, player2, setPlayer2, dupCardsPlayer1, dupCardsPlayer2, winner, handleSubmitGame, handleExitGame }}>
+        <PlayersContext.Provider value={{sweetAlert, handleFrmInputChangeP1, handleFrmInputChangeP2, generateId, player1, setPlayer1, player2, setPlayer2, dupCardsPlayer1, dupCardsPlayer2, winner, handleSubmitGame, handleExitGame }}>
             {children}
         </PlayersContext.Provider>
     );

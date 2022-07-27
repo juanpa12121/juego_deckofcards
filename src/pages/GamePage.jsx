@@ -16,7 +16,7 @@ const GamePage = () => {
                     {
                       winner.player === "player1" ? "GANADOR" : 
                       winner.player==="player2" ? "PERDEDOR" : 
-                      winner.player === "draw" ? "EMPATE TOTAL" : 
+                      winner.player === "tie" ? "EMPATE TOTAL" : 
                       ""
                     }
                   </span>
@@ -53,7 +53,7 @@ const GamePage = () => {
                     {
                       winner.player === "player2" ? "GANADOR" : 
                       winner.player==="player1" ? "PERDEDOR" :
-                      winner.player==="draw" ? "EMPATE TOTAL" : 
+                      winner.player==="tie" ? "EMPATE TOTAL" : 
                       ""
                     }
                   </span>
