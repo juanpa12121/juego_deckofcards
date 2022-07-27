@@ -5,7 +5,6 @@ import GamePage from "./pages/GamePage";
 import InstructionsPage from "./pages/InstructionsPage";
 import Footer from "./components/Footer";
 import { PlayersProvider } from "./context/PlayersProvider";
-import Swal from 'sweetalert2';
 import NavBar from "./components/NavBar";
 import CardValuesPage from "./pages/CardValuesPage";
 
