@@ -137,7 +137,7 @@ const PlayersProvider = ({ children }) =>{
             }
         }
       tieBreaker();
-    }, [winner.player === "draw"]);
+    }, [winner.player === "tie"]);
 
     // Funcion para salirse, reiniciar datos y el juego
     const handleExitGame = () =>{
